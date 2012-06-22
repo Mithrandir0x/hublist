@@ -47,7 +47,7 @@
             content.height($(window).height() - 140);
         });
 
-        console.log(githubUser);
+        //console.log(githubUser);
 
         if ( githubUser )
         {
@@ -222,15 +222,20 @@
                     Github.Users.GetUser(params, function(data){
                         $('.GithubAccountNameForm').css('opacity', '0.0');
 
-                        Hublist.StoreUser(data);
-                        Hublist.Render(data);
+                        if ( data )
+                        {
+                            Hublist.StoreUser(data);
+                            Hublist.Render(data);
 
-                        setTimeout(function(){$('.GithubAccountNameForm').remove();}, 500);
+                            setTimeout(function(){$('.GithubAccountNameForm').remove();}, 500);
+                        }
                     }).error(function(response, status, jqxhr){
                         console.log(response);
                         console.log(response.getAllResponseHeaders());
                         Hublist.DisplayError("Couldn't fetch github user information.");
                     });
+
+                    $(this).blur().hide();
                 }
             }
         });
