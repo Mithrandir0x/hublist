@@ -1,0 +1,294 @@
+
+/* u = 20px */
+
+/* CLEARFIX START */
+
+.clearFix:after
+{
+  clear: both;
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+* html .clearFix
+{
+  zoom: 1; /* IE6 */
+}
+
+*:first-child+html .clearFix
+{
+  zoom: 1; /* IE7 */
+}
+
+/* CLEARFIX END */
+
+.Header
+{
+  font-size: 42pt;
+  height: 100px;
+  line-height: 2;
+}
+
+.Spinner
+{
+  position: absolute !important;
+  right: 64px;
+  top: 64px;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+}
+
+.Content
+{
+  display: none;
+  margin-top: 40px;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.Column
+{
+  margin-right: 5px;
+  float: left;
+}
+
+.Repo
+{
+  background: #EEE;
+  border: 1px solid #EEE;
+  clear: both;
+  color: #323232;
+  /* float: left; */
+  font-size: 12pt;
+  height: 120px; /* 6u */
+  /* margin: 0px 20px 20px 0px; */
+  margin-bottom: 5px;
+  overflow: hidden;
+  position: relative;
+  width: 240px; /* 12u */
+}
+
+.Repo:hover
+{
+  border: 1px solid #4ea6ea;
+}
+
+.Repo a.Name
+{
+  color: #323232;
+  display: block;
+  font-size: 18pt;
+  height: 32px;
+  line-height: 1;
+  overflow: hidden;
+  width: 5000px;
+}
+
+.Repo a.Owner
+{
+  color: #a5a5a5;
+  display: block;
+}
+
+.Repo .BottomBar
+{
+  bottom: 0px;
+  height: 24px;
+  position: absolute;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  width: 100%;
+}
+
+.Repo .BottomBar:hover
+{
+  height: 64px;
+}
+
+.Repo .BottomBar .Toolbar
+{
+  background: #4ea6ea;
+  padding: 4px 6px 2px 0px;
+  text-align: right;
+}
+
+.Repo .BottomBar .Toolbar .Github-Octicons
+{
+  cursor: pointer;
+}
+
+.MessageBox
+{
+  background: #EEE;
+  bottom: 20%;
+  height: 20%;
+  left: 0px;
+  padding: 5%;
+  padding-top: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.MessageBox .Title
+{
+  color: #a5a5a5;
+  font-size: 18pt;
+}
+
+.MessageBox .Message
+{
+  color: #323232;
+  font-size: 24pt;
+  padding-left: 5%;
+}
+
+.Github-Octicons
+{
+  line-height: 1;
+  font-family: 'Octicons Regular';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  height: 36px;
+  line-height: 36px;
+  font-size: 32px;
+  color: #FFF;
+}
+
+.Github-Octicons-Message::before
+{
+  content: '\f209';
+}
+
+.Github-Octicons-Public-Fork::before
+{
+  content: '\f220';
+}
+
+.Github-Octicons-Public-Repo::before
+{
+  content: '\f201';
+}
+
+.Github-Octicons-Octocat::before
+{
+  content: '\f208';
+}
+
+.Github-Octicons-Logout::before
+{
+  content: '\f232';
+}
+
+.Github-Octicons-hublistLogo
+{
+  color: #EEE;
+  font-size: 256px;
+  height: 256px;
+  line-height: 1;
+  width: 256px;
+}
+
+.Github-Octicons-hublistLogo-Sup
+{
+  color: #EEE;
+  width: 64px;
+  height: 64px;
+  font-size: 64px;
+  vertical-align: top;
+}
+
+.GithubAccountNameForm
+{
+  background: #FFF;
+  height: 100%;
+  left: 0;
+  padding-top: 8%;
+  position: absolute;
+  text-align: center;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  top: 0;
+  width: 100%;
+}
+
+.GithubAccountNameInput
+{
+  background-color: white;
+  border: 0px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  width: 256px; margin: 16px; text-align: center;
+}
+
+.GithubAccountNameInput:focus
+{
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted 9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.GithubUser
+{
+  position: absolute;
+  right: 5%;
+  top: 0;
+}
+
+@font-face
+{
+  font-family: 'Octicons Regular';
+  font-style: normal;
+  src: url('../fonts/octicons-regular-webfont.woff') format('opentype');
+}
+
+a
+{
+  text-decoration: none;
+}
+
+body
+{
+  font-family: 'Segoe UI', 'Lucida Grande';
+  overflow: hidden;
+  padding-left: 120px;
+}
+
+body:after
+{
+  content: 'widescreen';
+  display: none;
+}
+
+@media all and (max-width: 960px) {
+
+    body:after 
+    {
+      content: 'default';
+      display: none;
+    }
+
+    .Repo
+    {
+      height: 120px; /* 6u */
+      width: 120px; /* 6u */
+    }
+
+}
