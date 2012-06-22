@@ -1,3 +1,4 @@
+
 (function(){
 
      jQuery.support.cors = true;
@@ -17,6 +18,7 @@
           };
 
           var fUrl = route.url.replace(/\{(\w+)\}/g, onReplaceKeyword);
+          fUrl += '?callback=?';
 
           if ( route.params )
           {
@@ -24,11 +26,7 @@
                {
                     if ( parameters[route.params[i]] )
                     {
-                         if ( fUrl.indexOf('?') == -1 )
-                              fUrl += '?';
-                         else
-                              fUrl += '&';
-                         fUrl += route.params[i] + '=' + parameters[route.params[i]]
+                         fUrl += '&' + route.params[i] + '=' + parameters[route.params[i]]
                     }
                }
           }
@@ -36,23 +34,35 @@
           return fUrl;
      };
 
-     Github.Utils.Get = function(url, parameters, callback){
-          return $.getJSON(Github.Utils.TreatURL(url, parameters), function(response, status, jqxhr){
-               var header = {};
-               var headerText = jqxhr.getAllResponseHeaders();
-               for ( var i = 0, headerItems = headerText.split('\n') ; i < headerItems.length ; i++ )
+     Github.Utils.ExtractUrlParameters = function(url){
+          var params = url.split('?');
+          var parameterMap = null;
+          if ( params.length == 2 )
+          {
+               parameterMap = {};
+               var lp = params[1].split('&');
+               for ( var i = 0 ; i < lp.length ; i++ )
                {
-                    var headerItem = headerItems[i].trim().split(': ');
-                    if ( headerItem.length == 2 )
-                    {
-                         header[headerItem[0]] = headerItem[1];
-                         var arrayItem = headerItem[1].split(', ');
-                         if ( arrayItem.length > 1 )
-                              header[headerItem[0]] = arrayItem;
-                    }
+                    var parameter = lp[i].split('=');
+                    parameterMap[parameter[0]] = parameter[1];
                }
+          }
 
-               callback(response, header);
+          return parameterMap;
+     }
+
+     Github.Utils.Get = function(url, parameters, callback){
+          return $.ajax({
+               url: Github.Utils.TreatURL(url, parameters),
+               type: 'GET',
+               dataType: 'jsonp',
+               cache: true,
+               beforeSend: function(xhr){
+                    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+               },
+               success: function(response, status, jqxhr){
+                    callback(response.data, response.meta);
+               }
           });
      };
 
@@ -67,21 +77,21 @@
      };
 
      Github.Users.GetWatchedReposBy = function(parameters, callback){
-          return Github.Utils.Get(Github.Users.Routes.GetWatchedReposBy, parameters, function(response, header){
-               var link = header['Link'];
+          return Github.Utils.Get(Github.Users.Routes.GetWatchedReposBy, parameters, function(response, meta){
                var nextPage = null;
                var lastPage = null;
-               if ( link )
+               if ( meta.Link )
                {
-                    nextPage = parseInt(link[0].split('=')[1].split('>')[0]);
-                    lastPage = parseInt(link[1].split('=')[1].split('>')[0]);
+                    nextPage = parseInt(Github.Utils.ExtractUrlParameters(meta.Link[0][0]).page);
+                    lastPage = parseInt(Github.Utils.ExtractUrlParameters(meta.Link[1][0]).page);
                }
+
                callback(response, nextPage, lastPage);
           });
      };
 
      Github.Users.GetUser = function(parameters, callback){
-          return Github.Utils.Get(Github.Users.Routes.GetUser, parameters, function(response, header){
+          return Github.Utils.Get(Github.Users.Routes.GetUser, parameters, function(response){
                response.id ? callback(response) : callback(null);
           });
      };
